@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Add Company To {{ job.Title }}{% endblock %}
+{% block browserTitle %}Add Company To {{ job.Title }}{% endblock %}
+
+{% block content %}
+	<form action="" method="post">
+		<table width="100%">
+			{{ form.as_table }}
+		</table>
+		<div class="actionbuttons"><input type="submit" value="Add New Company"> or <a href="{{ job.get_absolute_url }}">cancel</a></div>
+	</form>
+
+	{% if companies %}
+		<p style="text-align: center;"><strong>Or select an existing company ...</strong></p>
+		{% for company in companies %}
+			<a href="{{ job.get_absolute_url }}addcompany/{{ company.id }}/">{{ company.Title }}</a><br>
+		{% endfor %}
+	{% endif %}
+{% endblock %}
+
+
+

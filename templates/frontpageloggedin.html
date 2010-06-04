@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load childdata %}
+
+{% block pretitle %}Welcome to {% endblock %}
+{% block title %}myJobSeek{% endblock %}
+
+
+{% block sidecontent %}
+
+	<div class="box">
+			<a href="/newcompany/"><img src="/static/new.png" alt="New" title="New Company">Add a new Company</a><br>
+			<a href="/newagency/"><img src="/static/new.png" alt="New" title="New Agency">Add a new Agency</a><p>
+			<a href="/activity/"><img src="/static/view.png" alt="View" title="View your activity">View your activity</a>
+	</div>
+
+	<div class="box">
+		<div class="title">Emails</div>
+		{% for email in emails %}
+			<a href="{{ email.get_absolute_url }}"><img src="/static/newemail.png" alt="New Email" title="New Email"> {{ email.Subject }}</a><br>
+		{% endfor %}
+		{% for email in unfiledemails %}
+			<a href="{{ email.get_absolute_url }}"><img src="/static/reademail.png" alt="Read Email" title="Read Email"> {{ email.Subject }}</a><br>
+		{% endfor %}
+		{% if userprofile.can_accept_emails %}
+		<p>Forward emails to: <em>{{ user.username }}@user.myjobseek.net</em></p>
+		{% else %}
+		<p>You can not currently accept any more emails.</p>
+		{% endif %}
+	</div>
+	
+
+{% endblock %}
+
+{% block content %}
+
+	<div style="width: 100%" class="topbarbox">
+			<form action="" method="post">
+			<table>{{ form.as_table }}</table>
+			<input type="submit" value="Add this job!"> or <a href="/newjob/">Add a job without a webpage!</a>
+			</form>
+	</div>
+
+	{% if todos or appointments %}
+	<div style="float: right; width: 50%">
+		<h2>Tasks</h2>
+			{% if todos %}
+				{% for todo in todos %}{% show_common_data todo showlocation %}{% endfor %}
+			{% else %}
+				You have nothing to do.
+			{% endif %}
+	</div>
+	<div style="width: 50%">
+		<h2>Calendar&nbsp;<a href="/calendar/"><img src="/static/calendar.png" alt="View your calendar" title="View your calendar"></a></h2>
+			{% if appointments %}
+				{% for appointment in appointments %}{% show_common_data appointment showlocation %}{% endfor %}
+			{% else %}
+				You have no appointments.
+			{% endif %}
+	</div>
+	{% else %}
+		<div class="newuserguide">
+			Welcome to myJobSeek. To get started, add details of <a href="/newjob/">a Job</a>, <a href="/newagency/">an Agency</a> or 
+			<a href="/newcompany/">a Company</a> you want to apply to. You can then use notes, tasks, appointments and a calendar to
+			keep track of what you need to do.
+		</div>
+	{% endif %}
+{% endblock %}

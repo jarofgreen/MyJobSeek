@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Task{% endblock %}
+{% block browserTitle %}Edit Task{% endblock %}
+
+{% block content %}
+	<form action="" method="post">
+		<table>
+			{{ form.as_table }}
+		</table>
+		<div class="actionbuttons"><input type="submit" value="Edit Task"> or <a href="{{ task.get_absolute_url }}">cancel</a></div>
+	</form>
+{% endblock %}
+
+
+
+

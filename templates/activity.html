@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load childdata %}
+
+{% block title %}Activity{% endblock %}
+{% block browserTitle %}Activity{% endblock %}
+
+{% block content %}
+	{% if paginator.count  %}
+		{% for thing in page.object_list %}
+			{% show_common_data thing showlocation %}
+		{% endfor %}
+		{% if page.has_other_pages %}
+			<div class="pagenumbers">
+				{% if page.has_previous %}<a href="/activity/p{{ page.previous_page_number }}/">Prev</a> - {% endif %}
+				Page {{ page.number }} of {{ paginator.num_pages }}
+				{% if page.has_next %} - <a href="/activity/p{{ page.next_page_number }}/">Next</a>{% endif %}
+			</div>
+		{% endif %}
+	{% else %}
+		You have not done anything yet.
+		<div class="newuserguide">
+			If you add a note, task, appointment, email or a letter to a Job, Agency or Company it will show up here.
+		</div>
+	{% endif %}
+{% endblock %}
+
+
+{% block sidecontent %}
+	<div class="box">
+		<div class="title">Your Activity</div>
+
+		<a href="/activity/last2weeks/"><img src="/static/view.png" alt="View">View activity in last 2 weeks</a>
+	</div>
+{% endblock %}

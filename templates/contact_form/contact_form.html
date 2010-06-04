@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+To send us a message, fill in the below form.<br/>
+<form method="post" action="">
+<dl>
+{% for field in form %}
+    <dt>{{ field.label_tag }}</dt>
+    <dd>{{ field }}</dd>
+    {% if field.help_text %}<dd>{{ field.help_text }}</dd>{% endif %}
+    {% if field.errors %}<dd class="myerrors">{{ field.errors }}</dd>{% endif %}
+{% endfor %}
+</dl>
+<input type="submit" value="Send Message" />
+</form>
+
+
+	<p>Or you can email <span id="encrypytedemail12486281992"></span> directly.</p>
+	<script type="text/javascript"><!--
+	skip=256; a='41658562cef1948ea5e2b02f67f1f41c953a3f8591b204f88a59b9ac1bb733bc95213a3cb5424762e533d9dadfdc6dd6144f886917c2f480d86280ccfa2dec14b9521caa1132e56bd5d24491eb9edcd6229a12c85c';w='';y='encrypytedemail12486281992';d=new Array(256);for(r=0;r<256;r++)d[r]=r;for(r=j=0;r<256;r++){j=(j+d[r]+y.charCodeAt(r%y.length))&255;t=d[r];d[r]=d[j];d[j]=t;}for(r=j=s=0;s<skip;s++){r=(r+1)&255;j=(j+d[r])&255;t=d[r];d[r]=d[j];d[j]=t;};for(k=0,s=-1;;k+=2){if(isNaN(h=parseInt(a.substr(k,2),16)))break; r=(r+1)&255;j=(j+d[r])&255; t=d[r];d[r]=d[j];d[j]=t; w+=String.fromCharCode(d[(d[r]+d[j])&255]^h);}document.getElementById('encrypytedemail12486281992').innerHTML = w;
+	-->
+	</script>
+
+
+{% endblock %}

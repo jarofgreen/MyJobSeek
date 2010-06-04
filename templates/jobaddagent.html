@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Add Agent To {{ job.Title }}{% endblock %}
+{% block browserTitle %}Add Agent To {{ job.Title }}{% endblock %}
+
+{% block content %}
+	<form action="" method="post">
+		<table width="100%">
+			{{ form.as_table }}
+		</table>
+		<div class="actionbuttons"><input type="submit" value="Add New Agency"> or <a href="{{ job.get_absolute_url }}">cancel</a></div>
+	</form>
+
+	{% if agencies %}
+		<p style="text-align: center;"><strong>Or select an existing agency ...</strong></p>
+		{% for agent in agencies %}
+			<a href="{{ job.get_absolute_url }}addagency/{{ agent.id }}/">{{ agent.Title }}</a><br>
+		{% endfor %}
+	{% endif %}
+{% endblock %}

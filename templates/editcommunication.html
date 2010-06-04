@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Email or Letter{% endblock %}
+{% block browserTitle %}Edit Email or Letter{% endblock %}
+
+{% block content %}
+	<form action="" method="post">
+		<table>
+			{{ form.as_table }}
+		</table>
+		<div class="actionbuttons"><input type="submit" value="Edit Email or Letter"> or <a href="{{ note.get_absolute_url }}">cancel</a></div>
+	</form>
+{% endblock %}
+
+
+
+
+
+

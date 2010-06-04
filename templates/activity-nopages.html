@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load childdata %}
+
+{% block title %}Activity {{ title }}{% endblock %}
+{% block browserTitle %}Activity {{ title }}{% endblock %}
+
+{% block content %}
+	{% if object_list %}
+		{% for thing in object_list %}
+			{% show_common_data thing showlocation %}
+		{% endfor %}
+	{% else %}
+		You have not done anything recently.
+		<div class="newuserguide">
+			If you add a note, task, appointment, email or a letter to a Job, Agency or Company it will show up here.
+		</div>
+	{% endif %}
+{% endblock %}
+
+{% block sidecontent %}
+	<div class="box">
+		<div class="title">Your Activity</div>
+
+		<a href="/activity/"><img src="/static/view.png" alt="View">View All Activity</a>
+	</div>
+{% endblock %}

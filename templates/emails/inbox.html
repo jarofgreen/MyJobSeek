@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %} Email Inbox{% endblock %}
+{% block browserTitle %}  Email Inbox{% endblock %}
+
+{% block content %}
+	{% if emails %}
+		<table>
+		{% for email in emails %}
+		<tr>
+			<td><a href="{{ email.get_absolute_url }}">{% if email.IsRead %}<img src="/static/reademail.png" alt="Read Email">{% else %}<img src="/static/newemail.png" alt="New Email">{% endif %}</a></td>
+			<td><a href="{{ email.get_absolute_url }}">{{ email.Subject }}</a></td>
+			<td>{% if email.Job %}<a href="{{ email.Job.get_absolute_url }}">{{ email.Job.Title }}</a>{% endif %}</td>
+			<td>{% if email.getCompany %}<a href="{{ email.getCompany.get_absolute_url }}">{{ email.getCompany.Title }}</a>{% endif %}</td>
+			<td>{% if email.getAgency %}<a href="{{ email.getAgency.get_absolute_url }}">{{ email.getAgency.Title }}</a>{% endif %}</td>
+		</tr><br>
+		{% endfor %}
+		</table>
+
+	{% else %}
+		You do not have any emails.
+	{% endif %}
+{% endblock %}
+
+

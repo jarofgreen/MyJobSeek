@@ -1,0 +1,268 @@
+body, html {
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+	font-family: arial, sans-serif;
+	background: #ddddfd;
+}
+
+
+#title {
+	color: #fff;
+	padding: 0px;
+	width:100%;
+	background: #33c;
+	border-bottom: solid 2px #006;
+	background-image:url('/static/titlebackground.png');
+	background-repeat: repeat-x;
+}
+#title #links a:hover {
+	text-decoration: none;
+	border-bottom: 3px #006 solid;
+	color: #fff;
+}
+#title #links a {
+	text-decoration: none;
+	border-bottom: 1px #ccc dashed;
+	color: #fff;
+	margin: 0px 10px;
+}
+#title #links {
+	text-align: right;
+}
+#title #header h1 {
+	font-weight: bold;
+	font-size: 20pt;
+	color: #fff;
+	margin: 1px;
+	display: inline;
+}
+#title #header h1 a {
+	color: #fff;
+}
+#title #header a {
+	text-decoration: none;
+	border-bottom: 0px;
+}
+#title #beta {
+	font-weight: bold;
+	font-size: 10pt;
+	color: #fff;
+	margin: 1px 1px 1px 1px;
+	font-style: italic;
+}
+#title #pretitle {
+	font-weight: bold;
+	font-size: 12pt;
+	color: #fff;
+	margin: 1px 1px 1px 1px;
+	font-sutyle: italic;
+}
+#searchbox {
+	padding: 0px;
+	width:100%;
+	background: #ddd;
+	text-align: right;
+	font-size: 8pt;
+}
+#searchbox input {
+	font-size: 8pt;
+}
+
+
+
+#content {
+	text-align: left;
+	padding: 0px;
+	background: #FFF;
+	width:100%;
+	font-size: 10pt;
+}
+#content div {
+	padding: 7px;
+}
+#text {
+	padding: 5px;
+	margin-top: 20px;
+	margin-bottom: 40px;
+	margin-left: 20px;
+	width: 70%;
+}
+#rightcol {
+	float: right;
+	width: 20%;
+	margin: 20px 20px 40px 10px;
+}
+#rightcol .box {
+	border: 2px #006 solid;
+	border-top: 8px #006 solid;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding: 2px;
+}
+#rightcol .box .title {
+	font-weight: bold;
+	font-size: 12pt;
+	color: #006;
+	text-align: right;
+}
+#footer {
+	border-top: solid 2px #006;
+	clear: both;
+	text-align: right;
+	font-size: 80%;
+	font-style: italic;
+	padding: 20px;
+	background: #ddddfd;
+	background-image: url('/static/footerbackground.png');
+	background-repeat: repeat-x;
+}
+h2 {
+	font-weight: bold;
+	font-size: 14pt;
+	color: #006;
+}
+h3 {
+	font-size: 12pt;
+	color: #006;
+}
+
+
+
+
+
+ul.errorlist {
+	margin: 0;
+	padding: 0;
+}
+.errorlist li {
+	background-color: darkred;
+	color: white;
+	display: block;
+	font-size: 10px;
+	margin: 0 0 3px;
+	padding: 4px 5px;
+}
+
+table.calendar {
+	width: 100%;
+}
+table.calendar td div.date{
+	font-size: 12pt;
+	text-align:right;
+}
+table.calendar td div.todaysdate{
+	color: red;
+	font-size: 14pt;
+	text-align:right;
+}
+table.calendar td {
+	vertical-align:text-top;
+	width: 14%;
+	border: 1px solid #ccc;
+}
+table.calendar th {
+	text-align:right;
+	color: #aaa;
+}
+table.calendar td.notinmonth {
+	color: #aaa;
+}
+
+
+div.faq div.question {
+	font-weight: bold;
+}
+div.faq div.answer {
+	margin: 5px 30px;
+}
+
+form table {
+	width: 100%;
+}
+form table.small {
+	width: 50%;
+}
+
+form table th {
+	vertical-align: top;
+	text-align: right;
+}
+form table td input {
+	width: 100%;
+}
+form table td textarea {
+	width: 100%;
+}
+form div.actionbuttons {
+	text-align: right;
+	width: 100%;
+	margin-top: 20px;
+}
+
+
+div.topbarbox {
+	border: 2px solid #ddddfd;
+	border-top: 8px solid #ddddfd;
+	padding: 2px;
+}
+
+
+a img {
+	border: 0px;
+	padding: 2px;
+}
+
+div.newuserguide {
+	margin: 80px 40px;
+	font-size: 15pt;
+	font-style: italic;
+	text-align: center;
+	background-image:url('/static/info.png');
+	background-repeat: no-repeat;
+}
+
+
+
+
+div.pagenumbers {
+	text-align: center;
+	font-style: italic;
+}
+
+div.button {
+	margin: 40px;
+	text-align: center;
+}
+
+div.button a {
+	background: #33c;
+	color: #fff;
+	text-decoration: none;
+	padding: 10px;
+	font-style: normal;
+	background-image:url('/static/buttonbackground.png');
+	background-repeat: repeat-x;
+}
+div.message {
+	width: 50%;
+	position: fixed;
+	top: 30px;
+	left: 25%;
+	text-align: center;
+	border: solid 2px #006;
+	margin: 0px;
+	padding: 5px;
+	background: #ddddfd;
+	background-image: url('/static/footerbackground.png');
+	background-repeat: repeat-x;
+
+}
+div.message ul {
+	list-style-type: none;
+	display: inline;
+}
+
+
+
+

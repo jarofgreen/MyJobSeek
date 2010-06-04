@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Your Profile{% endblock %}
+{% block browserTitle %}Your Profile{% endblock %}
+
+{% block content %}
+	<table>
+		<tr>
+			<td style=" font-weight: bold; text-align: right;">UserName:</td>
+			<td>{{ user }}</td>
+		</tr>
+		<tr>
+			<td style=" font-weight: bold; text-align: right;">Name:</td>
+			<td>{{ user.first_name }} {{ user.last_name }}</td>
+		</tr>
+		<tr>
+			<td style=" font-weight: bold; text-align: right;">Email:</td>
+			<td>{{ user.email }}</td>
+		</tr>
+		<tr>
+			<td style=" font-weight: bold; text-align: right;">Recieve Reminder Emails:</td>
+			<td>{{ profile.reminder_emails_string }}</td>
+		</tr>
+		<tr>
+			<td style=" font-weight: bold; text-align: right;">Days warning for Appointments:</td>
+			<td>{{ profile.AppointmentReminderEmailDaysWarnings }}</td>
+		</tr>
+		<tr>
+			<td style=" font-weight: bold; text-align: right;">Days warning for Tasks:</td>
+			<td>{{ profile.TaskReminderEmailDaysWarnings }}</td>
+		</tr>
+		<tr>
+			<td style=" font-weight: bold; text-align: right;">Default number of days to compelete a Task:</td>
+			<td>{{ profile.TaskDefaultDaystoComplete }}</td>
+		</tr>
+	</table>
+
+{% endblock %}
+
+{% block sidecontent %}
+	<div class="box">
+		<br><a href="/accounts/password/change/">Change your Password</a><br/>
+		<br><a href="/myprofile/edit/">Edit</a><br/>
+	</div>
+{% endblock %}

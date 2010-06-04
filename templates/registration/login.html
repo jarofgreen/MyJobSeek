@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Log In{% endblock %}
+{% block browserTitle %}Log In{% endblock %}
+
+{% block content %}
+
+	{% if form.errors %}
+		<p class="error">Sorry, that's not a valid username or password</p>
+	{% endif %}
+
+	<form action="" method="post">
+	<input type="hidden" name="next" value="{{ next|escape }}" />
+		<table class="small">
+			<tr>
+				<th>
+					<label for="username">User name:</label>
+				</th>
+				<td>
+					<input type="text" name="username" value="" id="username"/>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label for="password">Password:</label>
+				</th>
+				<td>
+					<input type="password" name="password" value="" id="password"/>
+				</td>
+			</tr>
+
+	</table>
+    <div class="actionbuttons">
+		<input type="submit" value="login" />
+	</div>
+
+  </form>
+
+{% endblock %}
+
+{% block sidecontent %}
+<div class="box">
+	Have you <a href="/accounts/password/reset/">forgotten your password or username</a>?
+</div>
+{% endblock %}

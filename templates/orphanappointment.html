@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Appointment{% endblock %}
+{% block browserTitle %}Appointment{% endblock %}
+
+{% block content %}
+	{{ appointment.Note }}<p>
+
+	<em>{% ifequal  appointment.Start.date appointment.End.date %}
+			{{ appointment.Start|date }} {{ appointment.Start|time }} to {{ appointment.End|time }}
+		{% else %}
+			{{ appointment.Start|date }} {{ appointment.Start|time }} to {{ appointment.End|date }} {{ event.End|time }}
+		{% endifequal %}
+	</em>
+
+{% endblock %}
+
+{% block sidecontent %}
+	<div class="box">
+		<div class="title">Appointment</div>
+
+		<a href="/appointment/{{ appointment.id }}/edit/"><img src="/static/edit.png" alt="Edit">Edit this appointment</a><br>
+		<a href="{{  appointment.get_calendar_url }}"><img src="/static/view.png" alt="View">View on Calendar</a>
+	</div>
+{% endblock %}
+

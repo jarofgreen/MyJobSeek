@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %} Spam Emails{% endblock %}
+{% block browserTitle %}  Spam Emails{% endblock %}
+
+{% block content %}
+	{% if emails %}
+		<table>
+		{% for email in emails %}
+		<tr>
+			<td>{% if email.IsRead %}<img src="/static/reademail.png" alt="Read Email">{% else %}<img src="/static/newemail.png" alt="New Email">{% endif %}</td>
+			<td><a href="{{ email.get_absolute_url }}">{{ email.Subject }}</a></td>
+		</tr><br>
+		{% endfor %}
+		</table>
+	{% else %}
+		You do not have any emails.
+	{% endif %}
+{% endblock %}

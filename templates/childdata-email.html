@@ -1,0 +1,27 @@
+<div>
+<a name="e{{ email.id }}"></a>
+<img src="/static/newemail.png" alt="New Email"><strong>{{ email.Subject }}</strong><p>
+{{ email.Body|urlize|linebreaks  }}<p>
+
+{% if showlocation %}
+	<em><a href="{{ email.get_absolute_url }}"><img src="/static/view.png" alt="View" title="View this Email"></a>
+	{% if email.Job %}Job <a href="{{ note.Job.get_absolute_url }}">{{ note.Job.Title }}</a>{% endif %}
+	{% if email.getCompany %}With Company <a href="{{ email.getCompany.get_absolute_url }}">{{ email.getCompany.Title }}</a>{% endif %}
+	{% if email.getAgency %}From Agency <a href="{{ email.getAgency.get_absolute_url }}">{{ email.getAgency.Title }}</a>{% endif %}
+	</em><br>
+{% endif %}
+
+<em>
+	<a href="#" OnMouseOver='showNextElement(this)' OnMouseOut='hideNextElement(this)'><img src="/static/viewdetails.png" alt="View Details"></a>
+	<span style="display: none;">
+		From {{ email.From }}<br>
+		To {{ email.To }}<br>
+	
+		</span>
+	{% if email.Job and not job %}
+	Job <a href="{{ email.Job.get_absolute_url }}">{{ email.Job.Title }}</a>.
+	{% endif %}
+</em>
+</div>
+
+

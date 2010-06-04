@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load childdata %}
+
+{% block pretitle %}Job:{% endblock %}
+{% block title %} {{ job.Title }}{% endblock %}
+{% block browserTitle %}{{ job.Title }}{% endblock %}
+
+
+{% block inheader %}
+	<script src="http://www.linkedin.com/companyInsider?script&useBorder=yes" type="text/javascript"></script>
+{% endblock %}
+
+
+
+{% block content %}
+	{{ job.Note|urlize|linebreaks  }}
+	<p>{{ job.URL|urlize }}</p>
+	<hr style="width: 50%">
+	{% if  job.get_childdata %}
+		{% for cd in job.get_childdata %}{% show_common_data cd %}{% endfor %}
+		{% if job.needs_action_point %}
+		<div class="newuserguide">
+			You have no future appointments or tasks! Should you <a href="{{ job.get_absolute_url }}addtodo/">add a task</a> to follow this up?
+		</div>
+		{% endif %}
+	{% else %}
+		{% if job.IsInteresting %}
+		<div class="newuserguide">
+			You can now add <a href="{{ job.get_absolute_url }}addnote/">notes</a>,
+			<a href="{{ job.get_absolute_url }}addtodo/">tasks</a>, 
+			<a href="{{ job.get_absolute_url }}addappointment/">appointments</a> and
+			<a href="{{ job.get_absolute_url }}addcommunication/">correspondence</a>
+			and get reminder emails to keep track of what you need to do.
+		</div>
+		{% endif %}
+	{% endif %}
+{% endblock %}
+
+{% block sidecontent %}
+
+	<div class="box">
+	{% if job.IsInteresting %}
+		<div class="title">Still Interested</div>
+		You are still interested in this. <a href="{{ job.get_absolute_url }}marknotinteresting/">Lose interest</a>.
+	{% else %}
+		<div class="title">Not Interested</div>
+		You are no longer interested in this job. Any tasks and appointments linked to it will not be shown to you. <a href="{{ job.get_absolute_url }}markinteresting/">Gain interest</a>.
+	{% endif %}
+	</div>
+
+	<div class="box">
+	{% if job.Company %}
+		<div class="title">Company: {{ job.Company.Title }} <span id="LinkedIn"></span></div>
+		{{ job.Company.Note|linebreaks  }}<br>
+		
+		<script type="text/javascript">
+			new LinkedIn.CompanyInsiderPopup("LinkedIn","{{ job.Company.Title|addslashes }}");
+		</script><br>
+		<a href="{{ job.Company.get_absolute_url }}"><img src="/static/view.png" alt="View" title="View">View</a>
+	{% else %}
+		<div class="title">Company</div>
+		We do not know which company this job is for. {% if job.IsInteresting %}<a href="{{ job.get_absolute_url }}addcompany/">Tell us</a>.{% endif %}
+	{% endif %}
+	</div>
+
+	<div class="box">
+	{% if job.Agency %}
+		<div class="title">Agency: {{ job.Agency.Title }}</div>
+		{{ job.Agency.Note|linebreaks  }}<br>
+		<a href="{{ job.Agency.get_absolute_url }}"><img src="/static/view.png" alt="View" title="View">View</a>
+	{% else %}
+		<div class="title">Agency</div>
+		We do not know which agency this job is from. {% if job.IsInteresting %}<a href="{{ job.get_absolute_url }}addagency/">Tell us</a>.{% endif %}
+	{% endif %}
+	</div>
+
+	{% if job.IsInteresting %}
+	<div class="box">
+		<div class="title">Edit or Add</div>
+		<a href="{{ job.get_absolute_url }}edit/"><img src="/static/edit.png" alt="Edit" title="Edit">Edit this Job</a><br>
+		<a href="{{ job.get_absolute_url }}addnote/"><img src="/static/new.png" alt="New" title="New Note">Add Note</a><br>
+		<a href="{{ job.get_absolute_url }}addtodo/"><img src="/static/new.png" alt="New" title="New Task">Add Task</a><br>
+		<a href="{{ job.get_absolute_url }}addappointment/"><img src="/static/new.png" alt="New" title="New Appointment">Add Appointment</a><br>
+		<a href="{{ job.get_absolute_url }}addcommunication/"><img src="/static/new.png" alt="New" title="New Email or Letter">Add Email or Letter</a><br>
+	</div>
+	{% endif %}
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %} {{ title }}{% endblock %}
+{% block browserTitle %}  {{ title }}{% endblock %}
+
+{% block content %}
+	{% if things %}
+		{% for thing in things %}
+		<a href="{{ thing.get_absolute_url }}">{{ thing.Title }}</a><br>
+		{% endfor %}
+	{% else %}
+		You do not have any {{ title }}.
+	{% endif %}
+{% endblock %}
+
+{% block sidecontent %}
+	<div class="box">
+		<a href="{{ newurl }}"><img src="/static/new.png" alt="New"> Add New</a>
+	</div>
+
+	<div class="box">
+		{% if includeboring %}
+			This includes data you have marked as not intresting. <a href="..">Hide this data</a>.
+		{% else %}
+			This hides data you have marked as not intresting. <a href="includeboring/">Show this data</a>.
+		{% endif %}
+	</div>
+{% endblock %}

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=8" />
+		<title>{% block browserTitle %}Welcome{% endblock %} - myJobSeek</title>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.3/prototype.js"></script>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.2/scriptaculous.js?load=builder,effects"></script>
+		<script type="text/javascript" src="/static/ui.js"></script>
+
+		<script src="/static/calendarview.js" type="text/javascript"></script>
+		<link rel="stylesheet" href="/static/calendarview.css" type="text/css" media="screen"/>
+
+		<link rel="stylesheet" type="text/css" href="/static/stylesheet.css" />
+		{% block inheader %}{% endblock %}
+
+	</head>
+	<body>
+
+		{% if messages %}
+			<div class="message" id="UserMessages">
+				<a href="#" onclick="$('UserMessages').hide(); return false;" style="float: right; padding: 10px;"><img src="/static/close.png" title="Close Messages" alt="Close Messages"></a>
+				<ul>
+					{% for message in messages %}<li>{{ message.Message }} {% if message.UndoURL %}<a href="{{ message.UndoURL }}">Undo</a>{% endif %}</li>{% endfor %}
+				</ul>
+			</div>
+			<script type="text/javascript">setTimeout('$(\'UserMessages\').hide();', 20000);</script>
+		{% endif %}
+
+		<div id="content">
+
+			<div id="title">
+				<div id="header">
+					<span id="pretitle">{% block pretitle %}{% endblock %}</span>
+					<h1><a href="/">{% block title %}myJobSeek{% endblock %}</a></h1>
+					<span id="beta">BETA</span>
+				</div>
+				<div id="links">
+							{% if user.is_authenticated %}
+								Welcome {% if user.first_name or user.last_name %}{{  user.first_name }} {{ user.last_name }}{% else %}{{ user.username }}{% endif %}
+								<a href="/">Your Home</a>
+								<a href="/calendar/">Calendar</a>
+								<a href="/jobs/">Jobs</a>
+								<a href="/companies/">Companies</a>
+								<a href="/agencies/">Agencies</a>
+								<a href="/correspondence/">Correspondence</a>
+								<a href="/myprofile/">Your Account</a>
+								<a href="/accounts/logout/">Log out</a>
+							{% else %}
+								{% ifequal request.path "/" %}{% else %}
+									<a href="/">Home Page</a>
+								{% endifequal %}
+								<a href="/accounts/login/">Log In</a>
+								<a href="/accounts/register/">Register</a>
+							{% endif %}
+				</div>
+			</div>
+			{% if user.is_authenticated %}
+			<div id="searchbox">
+					<form action="/search/" method="GET">
+						Search For: <input type="text" name="q" value="{{ searchterm }}"/> <input type="submit" value="Search"/>
+					</form>
+				</div>
+			{% endif %}
+
+
+			<div id="rightcol">
+				{% block sidecontent %}{% endblock %}
+				{% if user.is_authenticated %}
+				<div class="box">
+					<div class="title">Give Feedback!</div>
+					We are still developing, and any feedback you can give is appreciated! 
+					Is there anything on this page you are unsure about? Have you encountered any problems?
+					<form action="/givefeedback/" method="post">
+					<textarea name="FeedBack" style="width: 90%; height: 100px;"></textarea>
+					<input type="hidden" name="FeedBackOnURL" value="{{ request.path }}"/>
+					<input type="submit" value="Send Feedback">
+					</form>	
+				</div>
+				{% endif %}
+			</div>
+			<div id="text">{% block content %}Content{% endblock %}</div>
+
+			<div id="footer">
+				<a href="/aboutus/">About Us</a> -
+				<a href="/faq/">Frequently Asked Questions</a> -
+				<a href="/contact/">Contact Us</a> -
+				<a href="/termsconditions/">Terms &amp; Conditions</a> -
+				<a href="/privacy/">Privacy</a> -
+				<a href="http://twitter.com/myjobseek">Follow us on Twitter</a>
+				<br/>
+				&copy;<a href="http://www.jarofgreen.co.uk">Jar of Green</a> 2009
+			</div>
+
+	</div>
+
+	{% load googleanalytics %}
+	{% googleanalyticsjs %}
+
+</body>
+{% block afterbody %}{% endblock %}
+</html>

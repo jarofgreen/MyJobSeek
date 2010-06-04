@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load childdata %}
+
+{% block pretitle %}Email:{% endblock %}
+{% block title %} {{ emailmessage.Subject }}{% endblock %}
+{% block browserTitle %}{{ emailmessage.Subject }}{% endblock %}
+
+{% block content %}
+	<table>
+		<tr><th>Dated:</th><td>{{emailmessage.EmailDate }}</td></tr>
+		<tr><th>From:</th><td>{{emailmessage.From }}</td></tr>
+		<tr><th>To:</th><td>{{emailmessage.To }}</td></tr>
+		<tr><th>Subject:</th><td>{{emailmessage.Subject }}</td></tr>
+	</table>
+
+	{{ emailmessage.Body|linebreaks }}
+
+{% endblock %}
+
+{% block sidecontent %}
+
+	{% if emailmessage.Job %}
+	<div class="box">
+		<div class="title">Job: {{ emailmessage.Job.Title }}</div>
+		{{ emailmessage.Job.Note|linebreaks  }}<br>
+		<a href="{{ emailmessage.Job.get_absolute_url }}">View</a>
+	</div>
+	{% endif %}
+
+	{% if emailmessage.getCompany %}
+	<div class="box">
+		<div class="title">Company: {{ emailmessage.getCompany.Title }}</div>
+		{{ emailmessage.getCompany.Note|linebreaks  }}<br>
+		<a href="{{ emailmessage.getCompany.get_absolute_url }}">View</a>
+	</div>
+	{% endif %}
+
+	{% if emailmessage.getAgency %}
+	<div class="box">
+		<div class="title">Agency: {{ emailmessage.getAgency.Title }}</div>
+		{{ emailmessage.getAgency.Note|linebreaks  }}<br>
+		<a href="{{ emailmessage.getAgency.get_absolute_url }}">View</a>
+	</div>
+	{% endif %}
+
+	{% if not emailmessage.Job and not emailmessage.getCompany and not emailmessage.getAgency %}
+	<div class="box">
+		<div class="title">Job, Company, Agency?</div>
+		We do not know what this email relates to.
+		<a href="{{ emailmessage.get_absolute_url }}linktojob/">Tell Us</a>
+	</div>
+	{% endif %}
+
+	<div class="box">
+		{% if emailmessage.IsSpam %}
+			<div class="title">Spam!</div>
+			This message has been marked as spam and will be hidden!
+			<a href="{{ emailmessage.get_absolute_url }}isnotspam/">undo</a>
+		{% else %}
+			<div class="title">Spam?</div>
+			<a href="{{ emailmessage.get_absolute_url }}isspam/">Mark this as Spam!</a>
+		{% endif %}
+	</div>
+{% endblock %}
+
+
+
+
+

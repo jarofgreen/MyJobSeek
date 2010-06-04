@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load childdata %}
+
+{% block inheader %}
+	<script src="http://www.linkedin.com/companyInsider?script&useBorder=yes" type="text/javascript"></script>
+{% endblock %}
+
+{% block pretitle %}Company:{% endblock %}
+{% block title %} {{ company.Title }}{% endblock %}
+{% block browserTitle %}{{ company.Title }} - Company {% endblock %}
+
+{% block content %}
+	{{ company.Note|urlize|linebreaks  }}
+	<p>{{ company.URL|urlize }}</p>
+	<hr style="width: 50%">
+	{% if company.get_childdata %}
+		{% for cd in company.get_childdata %}{% show_common_data cd %}{% endfor %}
+		{% if company.needs_action_point %}
+		<div class="newuserguide">
+			You have no future appointments or tasks! Should you <a href="{{ company.get_absolute_url }}addtodo/">add a task</a> to follow this up?
+		</div>
+		{% endif %}
+	{% else %}
+		{% if company.IsInteresting %}
+		<div class="newuserguide">
+			You can now add <a href="{{ company.get_absolute_url }}addnote/">notes</a>,
+			<a href="{{ company.get_absolute_url }}addtodo/">tasks</a>,
+			<a href="{{ company.get_absolute_url }}addappointment/">appointments</a> and
+			<a href="{{ company.get_absolute_url }}addcommunication/">correspondence</a>
+			and get reminder emails to keep track of what you need to do.
+		</div>
+		{% endif %}
+	{% endif %}
+{% endblock %}
+
+
+{% block sidecontent %}
+	<div class="box">
+	{% if company.IsInteresting %}
+		<div class="title">Still Interested</div>
+			{% if company.can_lose_intrest %}
+				You are still interested in this. <a href="{{ company.get_absolute_url }}marknotinteresting/">Lose interest</a>.
+			{% else %}
+				You are still interested in this and some jobs for this company.
+			{% endif %}
+	{% else %}
+		<div class="title">Not Interested</div>
+		You are no longer interested in this company. Any tasks and appointments linked to it will not be shown to you. <a href="{{ company.get_absolute_url }}markinteresting/">Gain interest</a>.
+	{% endif %}
+	</div>
+
+	{% if company.IsInteresting %}
+	<div class="box">
+		<div class="title">Edit or Add</div>
+		<a href="{{ company.get_absolute_url }}edit/"><img src="/static/edit.png" alt="Edit" title="Edit">Edit this Company</a><br>
+		<a href="{{ company.get_absolute_url }}addnote/"><img src="/static/new.png" alt="New" title="New Note">Add Note</a><br>
+		<a href="{{ company.get_absolute_url }}addtodo/"><img src="/static/new.png" alt="New" title="New Task">Add Task</a><br>
+		<a href="{{ company.get_absolute_url }}addappointment/"><img src="/static/new.png" alt="New" title="New Appointment">Add Appointment</a><br>
+		<a href="{{ company.get_absolute_url }}addcommunication/"><img src="/static/new.png" alt="New" title="New Email or Letter">Add Email or Letter</a><br>
+		<span id="LinkedIn"></span>
+		<script type="text/javascript">
+			new LinkedIn.CompanyInsiderPopup("LinkedIn","{{ company.Title|addslashes }}");
+		</script>
+	</div>
+	{% endif %}
+	
+	<div class="box">
+		<div class="title">Jobs</div>
+		{% if company.get_jobs %}
+			{% for job in company.get_interesting_jobs %}
+				<a href="{{ job.get_absolute_url }}">{{ job.Title }}</a><br>
+			{% endfor %}
+			{% if company.get_boring_jobs %}
+				<br>You have lost interest in these jobs:<p>
+				{% for job in company.get_boring_jobs %}
+					<a href="{{ job.get_absolute_url }}">{{ job.Title }}</a><br>
+				{% endfor %}
+			{% endif %}
+		{% else %}
+			There are no jobs linked to this Company.
+		{% endif %}
+		<br><a href="/newjob/?company={{ company.id }}"><img src="/static/new.png" title="New" alt="New">Add New Job</a>
+	</div>
+
+
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}New {{ title }}{% endblock %}
+{% block browserTitle %}New {{ title }}{% endblock %}
+
+{% block content %}
+	<form action="" method="post">
+		<table>
+			{{ form.as_table }}
+		</table>
+		<div class="actionbuttons"><input type="submit" value="Add Email or Letter"> or <a href="..">cancel</a></div>
+	</form>
+{% endblock %}

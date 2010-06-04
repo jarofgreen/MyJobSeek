@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}{{ monthname }} {{ year }}{% endblock %}
+{% block browserTitle %}{{ monthname }} {{ year }}{% endblock %}
+
+{% block content %}
+	<table class="calendar">
+	<tr>
+		{% for day in headers %}
+			<th>{{ day|date:"D" }}</th>
+		{% endfor %}
+	</tr>
+	{% for week in calendar %}
+		<tr>
+			{% for day in week %}
+				<td{% if not day.in_month %} class="notinmonth"{% endif %}>
+					<div class="{% ifequal day.day today %}todays{% endifequal %}date">{{ day.day|date:"j" }}</div>
+					{% if day.event %}
+						{% for event in day.event %}
+							{{ event.Note|urlize|linebreaks  }}<p>
+							<em>
+								{% ifequal  event.Start.date event.End.date %}
+									{{ event.Start|time }} to {{ event.End|time }}
+								{% else %}
+									{{ event.Start|date }} {{ event.Start|time }} to {{ event.End|date }} {{ event.End|time }}
+								{% endifequal %}
+								<a href="{{ event.get_absolute_url }}"><img src="/static/view.png" alt="View" title="View"></a>
+							</em><p>
+						{% endfor %}
+					{% endif %}
+				</td>
+			{% endfor %}
+		</tr>
+	{% endfor %}
+	</table>
+
+{% endblock %}
+
+{% block sidecontent %}
+	<div class="box">
+		<div class="title">{{ monthname }} {{ year }}</div>
+
+		<a href="{{ prevlink }}">&lt;&lt; Prev</a> -
+		{% if todaylink %}<a href="{{ todaylink }}">Today</a> - {% endif %}
+		<a href="{{ nextlink }}">Next &gt;&gt;</a><p>
+		
+		<a href="/calendar/addnew/"><img src="/static/new.png" alt="New">Add a new Appointment</a>
+	</div>
+{% endblock %}
+
+

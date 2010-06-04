@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %} Link Email To Job{% endblock %}
+{% block browserTitle %} Link Email To Job{% endblock %}
+
+{% block content %}
+	{% if jobs %}
+		<ul>
+			{% for job in jobs %}
+				<li><a href="{{ emailmessage.get_absolute_url }}linktojob/{{ job.id }}/">{{ job.Title }}</a>
+					{% if job.Company %} with {{ job.Company.Title }}{% endif %}
+					{% if job.Agency %} from {{ job.Agency.Title }}{% endif %}
+				</li>
+			{% endfor %}
+		</ul>
+	{% else %}
+		You do not have any jobs to Link to.
+	{% endif %}
+
+	{% if companies %}
+		<ul>
+			{% for company in companies %}
+				<li><a href="{{ emailmessage.get_absolute_url }}linktocompany/{{ company.id }}/">{{ company.Title }}</a></li>
+			{% endfor %}
+		</ul>
+	{% else %}
+		You do not have any companies to Link to.
+	{% endif %}
+
+	{% if agencies%}
+		<ul>
+			{% for agency in agencies %}
+				<li><a href="{{ emailmessage.get_absolute_url }}linktoagency/{{ agency.id }}/">{{ agency.Title }}</a></li>
+			{% endfor %}
+		</ul>
+	{% else %}
+		You do not have any agencies to Link to.
+	{% endif %}
+
+{% endblock %}
+
+

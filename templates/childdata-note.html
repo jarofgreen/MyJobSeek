@@ -1,0 +1,28 @@
+<div>
+<a name="n{{ note.id }}"></a>
+{{ note.Note|urlize|linebreaks  }}<p>
+
+{% if showlocation %}
+	<em><a href="{{ note.get_absolute_url }}"><img src="/static/view.png" alt="View" title="View this Note"></a>
+	{% if note.Job %}Job <a href="{{ note.Job.get_absolute_url }}">{{ note.Job.Title }}</a>{% endif %}
+	{% if note.getCompany %}With Company <a href="{{ note.getCompany.get_absolute_url }}">{{ note.getCompany.Title }}</a>{% endif %}
+	{% if note.getAgency %}From Agency <a href="{{ note.getAgency.get_absolute_url }}">{{ note.getAgency.Title }}</a>{% endif %}
+	</em><br>
+{% endif %}
+
+<em>
+	<a href="#" OnMouseOver='showNextElement(this)' OnMouseOut='hideNextElement(this)'><img src="/static/viewdetails.png" alt="View Details"></a>
+	<span style="display: none;">
+	Created {{ note.Created|date }} {{ note.Created|time }}
+	{% ifequal note.Created note.LastEdited %}{% else %}
+		Last Edited {{ note.LastEdited|date }} {{ note.LastEdited|time }}.
+	{% endifequal %}
+		</span>
+	<a href="/note/{{ note.id }}/edit/"><img src="/static/edit.png" alt="Edit" title="Edit this Note"></a>
+	{% if note.Job and not job %}
+	Job <a href="{{ note.Job.get_absolute_url }}">{{ note.Job.Title }}</a>.
+	{% endif %}
+</em>
+</div>
+
+

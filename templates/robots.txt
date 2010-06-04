@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /accounts/
+Disallow: /termsconditions/
+Disallow: /privacy/
+Disallow: /contact/
+Disallow: /static/
+
+

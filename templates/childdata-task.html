@@ -1,0 +1,40 @@
+<div>
+<a name="t{{ task.id }}"></a>
+{{ task.Note|urlize|linebreaks  }}<p>
+
+{% if showlocation %}
+	<em><a href="{{ task.get_absolute_url }}"><img src="/static/view.png" alt="View" title="View this Task"></a>
+	{% if task.Job %}Job <a href="{{ task.Job.get_absolute_url }}">{{ task.Job.Title }}</a>{% endif %}
+	{% if task.getCompany %}With Company <a href="{{ task.getCompany.get_absolute_url }}">{{ task.getCompany.Title }}</a>{% endif %}
+	{% if task.getAgency %}From Agency <a href="{{ task.getAgency.get_absolute_url }}">{{ task.getAgency.Title }}</a>{% endif %}
+	</em><br>
+{% endif %}
+
+<em>
+	<a href="#" OnMouseOver='showNextElement(this)' OnMouseOut='hideNextElement(this)'><img src="/static/viewdetails.png" alt="View Details"></a>
+	<span style="display: none;">
+	Created {{ task.Created|date }} {{ task.Created|time }}
+	{% ifequal task.Created task.LastEdited %}{% else %}
+		Last Edited {{ task.LastEdited|date }} {{ task.LastEdited|time }}.
+	{% endifequal %}
+		</span>
+	<a href="/task/{{ task.id }}/edit/"><img src="/static/edit.png" alt="Edit" title="Edit this Task"></a>
+	{% if not showlocation and  task.Job and not job %}
+	Job <a href="{{ task.Job.get_absolute_url }}">{{ task.Job.Title }}</a>.
+	{% endif %}
+	{% if task.IsCompleted %}
+			This task has been completed. <a href="/uncompletetodo/{{ task.id }}/">Undo This</a>
+	{% else %}
+		{% if not task.hasStarted %}
+			This task is not meant to be done till {{ task.Start|date }} {{ task.Start|time }}. <a href="/completetodo/{{ task.id }}/" >Complete Anyway</a>
+		{% else %}
+			{% if task.isLate %}
+				This task has not been completed and is {{ task.End|timesince }} late! <a href="/completetodo/{{ task.id }}/">Complete</a>
+			{% else %}
+				This task has not been completed and is due in {{ task.End|timeuntil }}. <a href="/completetodo/{{ task.id }}/">Complete</a>
+			{% endif %}
+		{% endif %}
+	{% endif %}
+</em>
+
+</div>

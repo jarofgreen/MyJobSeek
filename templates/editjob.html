@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Edit {{ job.Title }} {% endblock %}
+{% block browserTitle %}Edit {{ job.Title }}{% endblock %}
+
+{% block content %}
+	<form action="" method="post">
+		<table>
+			{{ form.as_table }}
+		</table>
+		<div class="actionbuttons"><input type="submit" value="Edit Job"> or <a href="{{ job.get_absolute_url }}">cancel</a></div>
+	</form>
+{% endblock %}

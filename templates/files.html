@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Files{% endblock %}
+
+
+{% block sidecontent %}
+	<div class="box">
+	</div>
+{% endblock %}
+
+{% block content %}
+
+	<table>
+	{% for file in userfiles %}
+		<tr>
+			<td>{{ file.FileName }}</td>
+			<td>{{ file.Note|linebreaks }}</td>
+		</tr>
+	{% endfor %}
+	</table>
+
+	<form action="" method="post" enctype="multipart/form-data">
+	<table>{{ form.as_table }}</table>
+	<input type="submit" value="Upload"/>
+	</form>
+
+{% endblock %}
+

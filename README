@@ -1,0 +1,20 @@
+MyJobSeek.net is a website to help job seekers stay organised.
+
+* Add details of companies, agencies & jobs.
+* Store correspondence and notes, and set reminders and tasks.
+* Email in to the system and file emails with the right record.
+* Receive reminder emails.
+
+It is released under the GPL version 3. If you want to make a copy available for the general public to use, please give it another name to avoid confusion.
+
+James
+http://github.com/jarofgreen/MyJobSeek
+
+
+install
+-------
+It is a Django app. Install as normal.
+There is a cron URL that should be called once a night.
+All emails from a subdomain should be piped into importemail.py.
+
+

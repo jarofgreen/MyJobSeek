@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Appointment{% endblock %}
+{% block browserTitle %}Edit Appointment{% endblock %}
+
+{% block content %}
+	<form action="" method="post">
+		<table>
+			{{ form.as_table }}
+		</table>
+		<div class="actionbuttons"><input type="submit" value="Edit Appointment"> or <a href="{{ appointment.get_absolute_url }}">cancel</a></div>
+	</form>
+{% endblock %}
+
+
+
+

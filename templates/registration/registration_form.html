@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+Welcome! Registering your free account is easy.<p/>
+
+<form method="post" action="">
+	<table>
+		{{ form.as_table }}
+	</table>
+	<div class="actionbuttons">
+		By opening an account, you agree to the <a href="/termsconditions/">Terms & Conditions</a>.<br>
+		<input type="submit" value="Register Account"/>
+	</div>
+</form>
+	
+
+{% endblock %}

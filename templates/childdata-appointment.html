@@ -1,0 +1,31 @@
+<div>
+<a name="a{{ appointment.id }}"></a>
+{{ appointment.Note|urlize|linebreaks  }}<p>
+
+{% if showlocation %}
+	<em><a href="{{ appointment.get_absolute_url }}"><img src="/static/view.png" alt="View" title="View this Appointment"></a>
+	{% if appointment.Job %}Job <a href="{{ appointment.Job.get_absolute_url }}">{{ appointment.Job.Title }}</a>{% endif %}
+	{% if appointment.getCompany %}With Company <a href="{{ appointment.getCompany.get_absolute_url }}">{{ appointment.getCompany.Title }}</a>{% endif %}
+	{% if appointment.getAgency %}From Agency <a href="{{ appointment.getAgency.get_absolute_url }}">{{ appointment.getAgency.Title }}</a>{% endif %}
+	</em><br>
+{% endif %}
+
+<em>
+	<a href="#" OnMouseOver='showNextElement(this)' OnMouseOut='hideNextElement(this)'><img src="/static/viewdetails.png" alt="View Details"></a>
+	<span style="display: none;">
+		Created {{ appointment.Created|date }} {{ appointment.Created|time }}.
+	{% ifequal appointment.Created appointment.LastEdited %}{% else %}
+		Last Edited {{ appointment.LastEdited|date }} {{ appointment.LastEdited|time }}.
+	{% endifequal %}
+	</span>
+	<a href="{{  appointment.get_calendar_url }}"><img src="/static/view.png" alt="View"</a>
+	<a href="/appointment/{{ appointment.id }}/edit/"><img src="/static/edit.png" alt="Edit" title="Edit this Appointment"></a>
+	{% if not showlocation and appointment.Job and not job %}
+	Job <a href="{{ appointment.Job.get_absolute_url }}">{{ appointment.Job.Title }}</a>.
+	{% endif %}
+	Appointment from {{ appointment.Start|date }} {{ appointment.Start|time }} to {{ appointment.End|date }} {{ appointment.End|time }}
+</em>
+</div>
+
+
+

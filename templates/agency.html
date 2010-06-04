@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load childdata %}
+
+{% block pretitle %}Agency:{% endblock %}
+{% block title %} {{ agency.Title }}{% endblock %}
+{% block browserTitle %}{{ agency.Title }}{% endblock %}
+
+{% block content %}
+	{{ agency.Note|urlize|linebreaks  }}
+	<p>{{ agency.URL|urlize }}</p>
+	<hr style="width: 50%">
+	{% if agency.get_childdata %}
+		{% for cd in agency.get_childdata %}{% show_common_data cd %}{% endfor %}
+		{% if agency.needs_action_point %}
+		<div class="newuserguide">
+			You have no future appointments or tasks! Should you <a href="{{ agency.get_absolute_url }}addtodo/">add a task</a> to follow this up?
+		</div>
+		{% endif %}
+	{% else %}
+		{% if agency.IsInteresting %}
+		<div class="newuserguide">
+			You can now add <a href="{{ agency.get_absolute_url }}addnote/">notes</a>,
+			<a href="{{ agency.get_absolute_url }}addtodo/">tasks</a>, 
+			<a href="{{ agency.get_absolute_url }}addappointment/">appointments</a> and
+			<a href="{{ agency.get_absolute_url }}addcommunication/">correspondence</a>
+			and get reminder emails to keep track of what you need to do.
+		</div>
+		{% endif %}
+	{% endif %}
+
+{% endblock %}
+
+{% block sidecontent %}
+	<div class="box">
+	{% if agency.IsInteresting %}
+		<div class="title">Still Interested</div>
+		{% if agency.can_lose_intrest %}
+			You are still interested in this. <a href="{{ agency.get_absolute_url }}marknotinteresting/">Lose interest</a>.
+		{% else %}
+			You are still interested in this and some jobs for this agency.
+		{% endif %}
+	{% else %}
+		<div class="title">Not Interested</div>
+		You are no longer interested in this agency. Any tasks and appointments linked to it will not be shown to you. <a href="{{ agency.get_absolute_url }}markinteresting/">Gain interest</a>.
+	{% endif %}
+	</div>
+
+	{% if agency.IsInteresting %}
+	<div class="box">
+		<div class="title">Edit or Add</div>
+		<a href="{{ agency.get_absolute_url }}edit/"><img src="/static/edit.png" alt="Edit" title="Edit">Edit this Agency</a><br>
+		<a href="{{ agency.get_absolute_url }}addnote/"><img src="/static/new.png" alt="New" title="New Note">Add Note</a><br>
+		<a href="{{ agency.get_absolute_url }}addtodo/"><img src="/static/new.png" alt="New" title="New Task">Add Task</a><br>
+		<a href="{{ agency.get_absolute_url }}addappointment/"><img src="/static/new.png" alt="New" title="New Appointment">Add Appointment</a><br>
+		<a href="{{ agency.get_absolute_url }}addcommunication/"><img src="/static/new.png" alt="New" title="New Email or Letter">Add Email or Letter</a><br>
+	</div>
+	{% endif %}
+
+	<div class="box">
+		<div class="title">Jobs</div>
+		{% if agency.get_jobs %}
+			{% for job in agency.get_interesting_jobs %}
+				<a href="{{ job.get_absolute_url }}">{{ job.Title }}</a><br>
+			{% endfor %}
+			{% if agency.get_boring_jobs %}
+				<br>You have lost interest in these jobs:<p>
+				{% for job in agency.get_boring_jobs %}
+					<a href="{{ job.get_absolute_url }}">{{ job.Title }}</a><br>
+				{% endfor %}
+			{% endif %}
+		{% else %}
+			There are no jobs linked to this Agency.
+		{% endif %}
+		<br><a href="/newjob/?agency={{ agency.id }}"><img src="/static/new.png" alt="New" title="New Job">Add New Job</a>
+	</div>
+{% endblock %}

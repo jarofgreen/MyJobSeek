@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Search for {{ searchterm }}{% endblock %}
+{% block browserTitle %}Search for {{ searchterm }}{% endblock %}
+
+{% block content %}
+
+	{% if jobs %}
+		<p>Jobs</p>
+		{% for job in jobs %}
+			<div>
+				<a href="{{ job.get_absolute_url }}">{{ job.Title }}</a>
+				{% if job.Company %} with {{ job.Company.Title }}{% endif %}
+				{% if job.Agency %} from {{ job.Agency.Title }}{% endif %}<br>
+				{{ job.Note|urlize|linebreaks }}
+			</div>
+		{% endfor %}
+	{% else %}
+		<p>No jobs were found.</p>
+	{% endif %}
+
+	{% if companies %}
+		<p>Companies</p>
+		{% for company in companies %}
+			<div>
+				<a href="{{ company.get_absolute_url }}">{{ company.Title }}</a><br>
+				{{ company.Note|urlize|linebreaks }}
+			</div>
+		{% endfor %}
+	{% else %}
+		<p>No companies were found.</p>
+	{% endif %}
+
+	{% if agencies %}
+		<p>Agencies</P>
+		{% for agency in agencies %}
+			<div>
+				<a href="{{ agency.get_absolute_url }}">{{ agency.Title }}</a><br>
+				{{ agency.Note|urlize|linebreaks }}
+			</div>
+		{% endfor %}
+	{% else %}
+		<p>No agencies were found.</p>
+	{% endif %}
+
+
+{% endblock %}
