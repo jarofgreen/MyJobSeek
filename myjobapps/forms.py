@@ -91,10 +91,10 @@ class NewAppointmentForm(forms.Form):
 	def clean_End(self):
 		"""Check End is not before start and is sensible."""
 		if self.cleaned_data['End'].year < 2009:
-			raise forms.ValidationError("The date can not be after 2009!")
+			raise forms.ValidationError("The date can not be before 2009!")
 		latest_year = datetime.now().year + 5
 		if self.cleaned_data['End'].year >  latest_year:
-			raise forms.ValidationError("The date can not be before %s!" % (latest_year))
+			raise forms.ValidationError("The date can not be after %s!" % (latest_year))
 		if self.cleaned_data['End'] < self.cleaned_data['Start']:
 			raise forms.ValidationError("The end date can not be before the start date!")
 		return self.cleaned_data['End']
